@@ -23,5 +23,6 @@ jobs:
         file: Dockerfile
         tags: |
           nlp_api:${{ github.sha }}
+          nlp_api:latest
         cache-from: type=gha
         cache-to: type=gha,mode=max
