@@ -1,0 +1,9 @@
+version: "3.2"
+
+services:
+  nlp_api:
+    image: ghcr.io/nhthien/nlp_api
+    container_name: nlp_api
+    restart: always
+    ports:
+      - "4000:4000"
