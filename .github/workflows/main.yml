@@ -26,7 +26,7 @@ jobs:
         push: true
         file: Dockerfile
         tags: |
-          ghcr.io/nhthien8x/nlp_api:${{ github.sha }}
-          ghcr.io/nhthien8x/nlp_api:latest
+          ghcr.io/nhthien/nlp_api:${{ github.sha }}
+          ghcr.io/nhthien/nlp_api:latest
         cache-from: type=gha
         cache-to: type=gha,mode=max
