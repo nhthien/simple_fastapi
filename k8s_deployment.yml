@@ -1,14 +1,34 @@
-apiVersion: v1 # Descriptor conforms to version v1 of Kubernetes API
-kind: Pod # Select Pod resource
+apiVersion: apps/v1
+kind: Deployment # change here
 metadata:
-  name: nlp-api # The name of the pod
-  labels:
-    enviroment: testing # label with key is enviroment and value is testing
-    project: kubernetes-series
+  name: nlp-api-deployment
 spec:
-  containers:
-    - image: ghcr.io/nhthien/nlp_api:k8s # Image to create the container
-      name: nlp-api # The name of the container
-      ports:
-        - containerPort: 4000 # The port the app is listening on 
-          protocol: TCP
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nlp-api
+  template:
+    metadata:
+      labels:
+        app: nlp-api
+    spec:
+      containers:
+      - image: ghcr.io/nhthien/nlp_api:k8s
+        name: nlp-api
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 4000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nlp-api-nodeport
+spec:
+  type: NodePort
+  selector:
+    app: nlp-api
+  ports:
+    - port: 4000
+      targetPort: 4000
+      nodePort: 31000

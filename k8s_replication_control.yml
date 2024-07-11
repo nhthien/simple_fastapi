@@ -17,3 +17,34 @@ spec:
         ports:
           - containerPort: 4000 # The port the app is listening on 
             protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nlp-api-nodeport
+spec:
+  selector:
+    app: nlp-api
+  type: NodePort #LoadBalancer
+  ports:
+    - port: 4000
+      targetPort: 4000
+      nodePort: 31000
+
+---
+apiVersion: networking.k8s.io/v1 
+kind: Ingress
+metadata:
+  name: nlp-api-ingress
+spec:
+  rules:
+  - host: 104.198.230.66 # domain name
+    http:
+      paths:
+        - path: /
+          backend:
+            service:
+              name: nlp-api-nodeport # name of the service inside cluster
+              port:
+                number: 4000
