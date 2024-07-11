@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: nlp-api-rc
+spec:
+  replicas: 1 # number of the pod
+  selector: # The pod selector determining what pods the RC is operating on
+    app: nlp-api # label value
+  template: # pod template
+    metadata:
+      labels:
+        app: nlp-api # label value
+    spec:
+      containers:
+      - image: ghcr.io/nhthien/nlp_api:k8s # Image to create the container
+        name: nlp-api # The name of the container
+        ports:
+          - containerPort: 4000 # The port the app is listening on 
+            protocol: TCP
