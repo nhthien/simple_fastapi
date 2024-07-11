@@ -1,36 +1,11 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1 # Descriptor conforms to version v1 of Kubernetes API
+kind: Pod # Select Pod resource
 metadata:
-  name: nlp_api-deployment
-  labels:
-    app: nlp_api
+  name: nlp-api # The name of the pod
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: nlp_api
-  template:
-    metadata:
-      labels:
-        app: nlp_api
-    spec:
-      containers:
-      - name: nlp_api
-        image: ghcr.io/nhthien/nlp_api:latest
-        ports:
-        - containerPort: 4000
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nlp_api-svc
-spec:
-  type: LoadBalancer
-  ports:
-    - name: first-port
-      protocol: TCP
-      port: 4000
-      targetPort: 4000
-  selector:
-    app: nlp_api
+  containers:
+    - image: ghcr.io/nhthien/nlp_api:latest # Image to create the container
+      name: nlp-api # The name of the container
+      ports:
+        - containerPort: 4000 # The port the app is listening on 
+          protocol: TCP
