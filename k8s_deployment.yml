@@ -4,7 +4,7 @@ metadata:
   name: nlp-api # The name of the pod
 spec:
   containers:
-    - image: ghcr.io/nhthien/nlp_api:latest # Image to create the container
+    - image: ghcr.io/nhthien/nlp_api:k8s # Image to create the container
       name: nlp-api # The name of the container
       ports:
         - containerPort: 4000 # The port the app is listening on 
